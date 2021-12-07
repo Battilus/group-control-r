@@ -20,13 +20,15 @@
 }
 
 .wrapper {
-  font-family: 'Roboto', sans-serif;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  position: relative;
 
   .label {
     margin: 10px;
     color: #000000;
     font-weight: 600;
     font-size: 16px;
+    line-height: 1.5;
   }
 
   .inputControl {
@@ -63,12 +65,14 @@
       border: 0;
       margin: 0;
       outline: 0;
-      padding: 10px 1px 10px 10px;
+      padding: 6px 1px 6px 10px;
+
+      font-weight: 500;
+      font-size: 0.9rem;
+      line-height: 1.5;
 
       &::placeholder {
-        color: #CCCCCCFF;
-        font-weight: 500;
-        opacity: 1;
+        color: #a8a8a8;
       }
 
       &:focus {
@@ -162,13 +166,18 @@
 
   .selector {
     margin-top: 2px;
-    border: 1px solid gray;
-    border-radius: 2px;
 
-    z-index: 100;
+    //position: absolute;
+    z-index: 999999999 !important;
 
-    max-height: 300px;
-    overflow: auto;
+    max-height: 324px;
+    overflow: hidden auto;
+
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+
+    box-shadow: rgb(0 0 0 / 20%) 0px 5px 5px -3px, rgb(0 0 0 / 14%) 0px 8px 10px 1px, rgb(0 0 0 / 12%) 0px 3px 14px 2px;
 
     &::-webkit-scrollbar {
       width: 4px;
@@ -182,7 +191,7 @@
     }
 
     .option {
-      padding: 2px;
+      padding: 6px;
 
       &:hover {
         background: black;

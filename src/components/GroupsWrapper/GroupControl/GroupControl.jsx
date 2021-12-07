@@ -23,10 +23,14 @@ const GroupControl = (props) => {
 
     return (
         <div className={style.wrapper}
-             // onBlur={() => setDropDown(false)}
+             // onBlur={e => {
+             //     e.stopPropagation();
+             //     setDropDown(false)
+             // }}
         >
             <div className={style.label}
-                 onClick={() => setDropDown(false)}>Группа:</div>
+                 onClick={() => setDropDown(false)}
+            >Группа:</div>
 
             <div className={`${style.inputControl} ${(dropDown) ? style.active : ''}`}
                  onClick={() => setDropDown(true)}
@@ -56,7 +60,7 @@ const GroupControl = (props) => {
                                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
                             </svg>
                         </div> : null}
-                    {values ?
+                    {values.length ?
                         <div className={style.dropDownBtnBox}>
                             {(newGroupVal || selected) ? <span className={style.separator}/> : null}
                             <div className={`${style.arrowDownBtn} ${(dropDown && values) ? style.rotate : ''}`}>
@@ -70,7 +74,10 @@ const GroupControl = (props) => {
                 </div>
             </div>
             {(values.length && dropDown) ? <div className={style.selector}>
-                {values.map(item => <div className={style.option} key={item.id} onClick={() => selectGroup(item)}>{item.label}</div>)}
+                {values.map(item => <div className={style.option}
+                                         key={item.id}
+                                         onClick={() => selectGroup(item)}>{item.label}
+                </div>)}
             </div> : null}
         </div>
     );
