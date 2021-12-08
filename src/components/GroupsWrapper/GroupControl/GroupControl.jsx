@@ -8,17 +8,8 @@ const GroupControl = (props) => {
     const [dropDown, setDropDown] = useState(false);
     const [newGroupVal, setNewGroupVal] = useState('');
 
-    const addGroup = () => {
-        props.addGroup(newGroupVal)
-        setNewGroupVal('')
-    }
-
-    const selectGroup = (e) => {
-        props.selectGroup(e)
-    }
-
-    const deleteGroup = (e) => {
-        props.deleteGroup(e)
+    const dispatch = (action, payload) => {
+        props.reducer(action, payload)
     }
 
     return (
@@ -27,24 +18,32 @@ const GroupControl = (props) => {
              //     e.stopPropagation();
              //     setDropDown(false)
              // }}
+             onFocus={ (e) => {
+                 e.stopPropagation()
+                 console.log('main', 'focus')
+             } }
+             onBlur={ () => {console.log('main', 'blur')} }
         >
             <div className={style.label}
                  onClick={() => setDropDown(false)}
             >Группа:</div>
 
             <div className={`${style.inputControl} ${(dropDown) ? style.active : ''}`}
-                 onClick={() => setDropDown(true)}
+                 onClick={(e) => setDropDown(true)}
             >
                 <input
                     type="text"
                     placeholder="Укажите название"
                     value={(selected) ? label : newGroupVal}
                     onChange={(!selected) ? (e) => setNewGroupVal(e.target.value) : null}
+
+                    onFocus={ () => {console.log('input', 'focus');} }
+                    onBlur={ () => {console.log('input', 'blur');} }
                 />
                 <div className={style.buttonsBox}>
                     {selected ?
                         <div className={style.deleteBtn}
-                             onClick={() => deleteGroup(selected)}
+                             onClick={() => dispatch('deleteGroup',selected)}
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
                                  className={style.deleteIcon}>
@@ -53,7 +52,10 @@ const GroupControl = (props) => {
                             </svg>
                         </div> : newGroupVal ?
                             <div className={style.addBtn}
-                                 onClick={addGroup}
+                                 onClick={() => {
+                                     dispatch('addGroup', newGroupVal)
+                                     setNewGroupVal('')
+                                 }}
                             >
                             <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
                                  className={style.applyArrow}>
@@ -76,7 +78,7 @@ const GroupControl = (props) => {
             {(values.length && dropDown) ? <div className={style.selector}>
                 {values.map(item => <div className={style.option}
                                          key={item.id}
-                                         onClick={() => selectGroup(item)}>{item.label}
+                                         onClick={() => dispatch('selectGroup', item)}>{item.label}
                 </div>)}
             </div> : null}
         </div>

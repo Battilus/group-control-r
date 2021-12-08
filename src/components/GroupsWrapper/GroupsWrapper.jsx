@@ -96,30 +96,42 @@ const GroupsWrapper = () => {
         groups: initialGroups
     })
 
-    const addGroup = (payload) => {
-        const groups = store.groups
-        groups.push({
-            id: nanoid(),
-            label: payload
-        })
-        setStore({...store, groups})
-    }
+    const groupReducer = (action, payload) => {
+        switch (action) {
+            case 'addGroup':
+                const updatedGroups = store.groups
+                updatedGroups.push({
+                    id: nanoid(),
+                    label: payload
+                })
+                setStore({...store, groups: updatedGroups})
+                break
 
-    const deleteGroup = (payload) => {
-        const selected = {
-            id: '',
-            label: ''
-        }
-        const groups = store.groups.filter(item => item.id !== payload)
-        setStore({...store, selected, groups})
-    }
+            case 'deleteGroup':
+                const clearedGroups = store.groups.filter(item => item.id !== payload)
+                setStore({
+                    ...store,
+                    selected: {
+                        id: '',
+                        label: ''
+                    },
+                    groups: clearedGroups
+                })
+                break
 
-    const selectGroup = (payload) => {
-        const selected = {
-            id: payload.id,
-            label: payload.label
+            case 'selectGroup':
+                setStore({
+                    ...store,
+                    selected: {
+                        id: payload.id,
+                        label: payload.label
+                    }
+                })
+                break
+
+            default:
+                setStore(store)
         }
-        setStore({...store, selected})
     }
 
     // console.log(store)
@@ -127,10 +139,7 @@ const GroupsWrapper = () => {
     return (
         <div className={style.wrapper}>
             <GroupControl label={store.selected.label} values={store.groups} selected={store.selected.id}
-                          addGroup={addGroup}
-                          selectGroup={selectGroup}
-                          deleteGroup={deleteGroup}
-            />
+                          reducer={groupReducer}/>
         </div>
     );
 }
