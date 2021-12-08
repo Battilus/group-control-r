@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from "./groupcontrol.module.scss"
 
 
@@ -7,6 +7,15 @@ const GroupControl = (props) => {
     const {label, values, selected} = props
     const [dropDown, setDropDown] = useState(false);
     const [newGroupVal, setNewGroupVal] = useState('');
+
+    useEffect(() => {
+        window.addEventListener('click', clickOutsideHandler)
+        return () => window.removeEventListener('click', clickOutsideHandler)
+    })
+
+    const clickOutsideHandler = () => {
+        if (dropDown) setDropDown(false)
+    }
 
     const dispatch = (action, payload) => {
         props.reducer(action, payload)
