@@ -167,17 +167,19 @@
   .selector {
     margin-top: 2px;
 
-    //position: absolute;
-    z-index: 999999999 !important;
+    position: absolute;
+    top: 75px;
+    z-index: 99;
 
     max-height: 324px;
+    width: 100%;
     overflow: hidden auto;
 
     font-weight: 400;
     font-size: 1rem;
     line-height: 1.5;
 
-    box-shadow: rgb(0 0 0 / 20%) 0px 5px 5px -3px, rgb(0 0 0 / 14%) 0px 8px 10px 1px, rgb(0 0 0 / 12%) 0px 3px 14px 2px;
+    box-shadow: rgb(0 0 0 / 20%) 0 5px 5px -3px, rgb(0 0 0 / 14%) 0px 8px 10px 1px, rgb(0 0 0 / 12%) 0px 3px 14px 2px;
 
     &::-webkit-scrollbar {
       width: 4px;

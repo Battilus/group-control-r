@@ -7,7 +7,6 @@ const App = () => {
   return (
     <div className="App">
       <GroupsWrapper/>
-        <h1>Test</h1>
     </div>
   );
 }

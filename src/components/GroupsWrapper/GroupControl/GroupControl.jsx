@@ -13,32 +13,20 @@ const GroupControl = (props) => {
     }
 
     return (
-        <div className={style.wrapper}
-             // onBlur={e => {
-             //     e.stopPropagation();
-             //     setDropDown(false)
-             // }}
-             onFocus={ (e) => {
-                 e.stopPropagation()
-                 console.log('main', 'focus')
-             } }
-             onBlur={ () => {console.log('main', 'blur')} }
-        >
-            <div className={style.label}
-                 onClick={() => setDropDown(false)}
-            >Группа:</div>
+        <div className={style.wrapper}>
+            <div className={style.label}>Группа:</div>
 
             <div className={`${style.inputControl} ${(dropDown) ? style.active : ''}`}
-                 onClick={(e) => setDropDown(true)}
+                 onClick={(e) => {
+                     e.stopPropagation()
+                     setDropDown(true)
+                 }}
             >
                 <input
                     type="text"
                     placeholder="Укажите название"
                     value={(selected) ? label : newGroupVal}
                     onChange={(!selected) ? (e) => setNewGroupVal(e.target.value) : null}
-
-                    onFocus={ () => {console.log('input', 'focus');} }
-                    onBlur={ () => {console.log('input', 'blur');} }
                 />
                 <div className={style.buttonsBox}>
                     {selected ?
@@ -65,7 +53,12 @@ const GroupControl = (props) => {
                     {values.length ?
                         <div className={style.dropDownBtnBox}>
                             {(newGroupVal || selected) ? <span className={style.separator}/> : null}
-                            <div className={`${style.arrowDownBtn} ${(dropDown && values) ? style.rotate : ''}`}>
+                            <div className={`${style.arrowDownBtn} ${(dropDown && values) ? style.rotate : ''}`}
+                                 onClick={(e) => {
+                                     e.stopPropagation()
+                                     setDropDown(!dropDown)
+                                 }}
+                            >
                                 <svg height="20" width="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false"
                                      className={style.arrowDown}>
                                     <path

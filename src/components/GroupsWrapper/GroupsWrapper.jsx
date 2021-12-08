@@ -4,7 +4,7 @@ import {nanoid} from "nanoid";
 import GroupControl from "./GroupControl/GroupControl";
 
 
-const GroupsWrapper = () => {
+const GroupsWrapper = (props) => {
     const initialGroups = [
         {
             id: 1,
@@ -86,7 +86,7 @@ const GroupsWrapper = () => {
             id: 20,
             label: 'Test 20',
         },
-    ]
+    ] || props.values
 
     const [store, setStore] = useState({
         selected: {
@@ -134,7 +134,6 @@ const GroupsWrapper = () => {
         }
     }
 
-    // console.log(store)
 
     return (
         <div className={style.wrapper}>
