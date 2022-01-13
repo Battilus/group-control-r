@@ -21,6 +21,13 @@ const GroupControl = (props) => {
         props.reducer(action, payload)
     }
 
+    const updateGroupField = e => {
+        if (selected)
+            dispatch('clearSelector')
+        else
+            setNewGroupVal(e.target.value)
+    }
+
     return (
         <div className={style.wrapper}>
             <div className={style.label}>Группа:</div>
@@ -35,12 +42,12 @@ const GroupControl = (props) => {
                     type="text"
                     placeholder="Укажите название"
                     value={(selected) ? label : newGroupVal}
-                    onChange={(!selected) ? (e) => setNewGroupVal(e.target.value) : null}
+                    onChange={updateGroupField}
                 />
                 <div className={style.buttonsBox}>
                     {selected ?
                         <div className={style.deleteBtn}
-                             onClick={() => dispatch('deleteGroup',selected)}
+                             onClick={() => dispatch('deleteGroup', selected)}
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
                                  className={style.deleteIcon}>
@@ -54,11 +61,11 @@ const GroupControl = (props) => {
                                      setNewGroupVal('')
                                  }}
                             >
-                            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
-                                 className={style.applyArrow}>
-                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                            </svg>
-                        </div> : null}
+                                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+                                     className={style.applyArrow}>
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                            </div> : null}
                     {values.length ?
                         <div className={style.dropDownBtnBox}>
                             {(newGroupVal || selected) ? <span className={style.separator}/> : null}
